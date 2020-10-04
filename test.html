@@ -1,0 +1,116 @@
+<html>
+<title>test</title>
+
+<body>
+	<form id="frm1" action="test.php" method="post">
+		Name of File: <input type="text" name="fileName"><br>
+		<h3>Compile</h3>
+		Grade for Compiling: <input type="text" name="compileGrade" id="compileGrade"><br>
+		<h3>Regex</h3>
+		Overall Grade for Regex: <input type="text" name="regexGrade" id="regexGrade"><br>
+		Number of Regex: <input type="text" name="numOfRegex" id="numOfRegex"><br>
+		<a href="#" id="fillRegex" onclick="fillRegex()">Fill in Regex</a><br>
+		<div id="regexDetails" >
+		</div>
+		<h3>Test Cases</h3>
+		Overall Grade for Test Cases: <input type="text" name="TCGrade" id="TCGrade"><br>
+		Number of Test Cases: <input type="text" name="numOfTC" id="numOfTC"><br>
+		<a href="#" id="fillTC" onclick="fillTC()">Fill in Test Cases</a><br>
+		<div id="TCDetails" >
+		
+		</div>
+		<input type="submit" onclick="myFun()">
+	</form>
+
+	<script>
+		function myFun(){
+			alert("Thank you for submitting the form!");
+		}
+	
+		
+		function fillRegex() {
+		    var numOfRegex = document.getElementById("numOfRegex").value;
+		    var regexDetails = document.getElementById("regexDetails");
+		    var i;
+		    while (regexDetails.hasChildNodes()) {
+               		regexDetails.removeChild(regexDetails.lastChild);
+            	    }
+		    for (i = 0; i < numOfRegex ;i++) {
+			regexDetails.appendChild(document.createTextNode("Regex " + (i+1) + ": "));
+		        var input = document.createElement("input");
+					input.type = "text";
+                    input.name = "regex"+(i+1);
+		        regexDetails.appendChild(input);
+		        regexDetails.appendChild(document.createElement("br"));
+
+			regexDetails.appendChild(document.createTextNode("Comment " + (i+1) + ": "));
+		        var input = document.createElement("input");
+					input.type = "text";
+					input.name = "comment"+(i+1);
+		        regexDetails.appendChild(input);
+		        regexDetails.appendChild(document.createElement("br"));
+		    }
+		}
+		
+		function fillTC() {
+		    var numOfTC = document.getElementById("numOfTC").value;
+		    var TCDetails = document.getElementById("TCDetails");
+		    var i;
+		    while (TCDetails.hasChildNodes()) {
+               		TCDetails.removeChild(TCDetails.lastChild);
+            	    }
+		    for (i = 0; i < numOfTC ;i++) {
+			var record = i+1;
+			TCDetails.appendChild(document.createTextNode("Test Case" + (i+1) + ": "));
+			TCDetails.appendChild(document.createElement("br"));
+			
+				TCDetails.appendChild(document.createTextNode("Number of Inputs: "));
+					var input1 = document.createElement("input");
+						input1.type = "text";
+						input1.name = "numOfIn"+(i+1);
+						input1.id = "numOfIn"+(i+1);
+					TCDetails.appendChild(input1);
+					TCDetails.appendChild(document.createElement("br"));
+					
+					var fillInput = document.createElement("a");
+						fillInput.href = "#";
+						fillInput.id = "fillInput";
+						var numOfInputParam = "numOfIn"+(i+1);
+						var inputDetailsParam = "inputDetails"+(i+1);
+						fillInput.setAttribute('onclick', 'fillInput("'+record+'","'+numOfInputParam+'","'+inputDetailsParam+'")');
+						fillInput.appendChild(document.createTextNode("Fill Inputs"));
+					TCDetails.appendChild(fillInput);
+					TCDetails.appendChild(document.createElement("br"));
+					var div = document.createElement("div");
+						div.id ="inputDetails"+(i+1);
+					TCDetails.appendChild(div);
+					TCDetails.appendChild(document.createElement("br"));
+					
+					TCDetails.appendChild(document.createTextNode("Expected Output:"));
+						var output = document.createElement("input");
+							output.type = "text";
+							output.name = "output"+(i+1);
+							output.id = "output"+(i+1);
+					TCDetails.appendChild(output);
+					TCDetails.appendChild(document.createElement("br"));
+		    }
+		}
+		
+		function fillInput(record, e, f) {
+			var numOfIn = document.getElementById(e).value;
+			var inputDetails = document.getElementById(f);
+			var j;
+			while (inputDetails.hasChildNodes()) {
+				inputDetails.removeChild(inputDetails.lastChild);
+				}
+			for (j = 0; j < numOfIn ;j++) {
+				inputDetails.appendChild(document.createTextNode("Input " + (j+1) + ": "));
+				var input2 = document.createElement("input");
+					input2.type = "text";
+					input2.name = "input-"+record+"-"+(j+1);
+				inputDetails.appendChild(input2);
+				inputDetails.appendChild(document.createElement("br"));
+			}
+		}
+	</script>
+</body>
